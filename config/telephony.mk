@@ -8,6 +8,11 @@ PRODUCT_COPY_FILES += \
 
 # Telephony packages
 PRODUCT_PACKAGES += \
-    CellBroadcastReceiver \
     messaging \
-    Stk
+    Stk \
+    CellBroadcastReceiver
+
+# Default ringtone
+PRODUCT_PROPERTY_OVERRIDES += \
+    ro.config.ringtone=Strontium.ogg
+   

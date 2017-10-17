@@ -19,6 +19,11 @@ PRODUCT_PROPERTY_OVERRIDES += \
     ro.com.google.clientidbase=$(PRODUCT_GMS_CLIENTID_BASE)
 endif
 
+# Default sounds
+PRODUCT_PROPERTY_OVERRIDES += \
+    ro.config.alarm_alert=Tourmaline.ogg \
+    ro.config.notification_sound=Omicron.ogg
+
 # XenonHD Overrides
 PRODUCT_PROPERTY_OVERRIDES += \
     keyguard.no_require_sim=true \
@@ -73,7 +78,6 @@ PRODUCT_COPY_FILES += \
 # Include OTA config, XenonHD audio files, Theme engine
 include $(CONFIG)/ota.mk
 include $(CONFIG)/themes_common.mk
-include $(CONFIG)/xenonhd_audio.mk
 
 # CMSDK
 ifneq ($(TARGET_DISABLE_CMSDK), true)
@@ -87,6 +91,7 @@ endif
 
 # XenonHD packages
 PRODUCT_PACKAGES += \
+    AudioFX \
     BluetoothExt \
     CMAudioService \
     CMParts \
