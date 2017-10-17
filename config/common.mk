@@ -64,7 +64,6 @@ PRODUCT_COPY_FILES += \
     $(CONFIG)/permissions/power-whitelist.xml:system/etc/sysconfig/power-whitelist.xml \
     $(PREBUILT)/etc/init.local.rc:root/init.xenonhd.rc \
     $(PREBUILT)/lib/content-types.properties:system/lib/content-types.properties \
-    $(PREBUILT)/media/bootanimation.zip:system/media/bootanimation.zip
 
 # Enable SIP+VoIP on all targets & wireless Xbox 360 controller support
 PRODUCT_COPY_FILES += \
@@ -92,51 +91,36 @@ PRODUCT_PACKAGES += \
     CMAudioService \
     CMParts \
     CMSettingsProvider \
+    Calculator \
     Development \
-    ExactCalculator \
+    Eleven \
     Jelly \
-    libemoji \
-    libffmpeg_omx \
-    libffmpeg_extractor \
-    libprotobuf-cpp-full \
-    librsjni \
     LiveWallpapersPicker \
     LockClock \
-    media_codecs_ffmpeg.xml \
-    mnml \
-    NovaLauncher \
-    OmniClockOSS \
-    Phonograph \
     PhotoTable \
     Profiles \
     Recorder \
     Terminal \
+    Wallpapers \
     WallpaperPicker \
     WeatherManagerService \
-    WeatherProvider
+    WeatherProvider \
+    libemoji \
+    libffmpeg_extractor \
+    libffmpeg_omx \
+    libprotobuf-cpp-full \
+    librsjni \
+    media_codecs_ffmpeg.xml \
+    mnml
 
-# These packages are excluded from user builds
-ifneq ($(TARGET_BUILD_VARIANT),user)
 PRODUCT_PACKAGES += \
     procmem \
-    procrank
-
-ifeq ($(ROOT_METHOD),su)
-PRODUCT_PACKAGES += \
+    procrank \
     su
-endif
-
-ifeq ($(ROOT_METHOD),magisk)
-PRODUCT_PACKAGES += \
-    Magisk \
-    MagiskManager
-endif
-endif
 
 # Extra tools in XenonHD
 PRODUCT_PACKAGES += \
     7z \
-    bash \
     bzip2 \
     curl \
     fsck.ntfs \
@@ -164,19 +148,14 @@ PRODUCT_PACKAGES += \
     tune2fs \
     unrar \
     unzip \
-    vim \
     wget \
     zip
 
-# ExFAT support
-WITH_EXFAT ?= true
-ifeq ($(WITH_EXFAT),true)
 TARGET_USES_EXFAT := true
 PRODUCT_PACKAGES += \
     fsck.exfat \
     mkfs.exfat \
     mount.exfat
-endif
 
 -include $(CONFIG)/partner_gms.mk
 -include $(WORKSPACE)/build_env/image-auto-bits.mk
