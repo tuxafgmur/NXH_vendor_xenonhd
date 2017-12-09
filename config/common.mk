@@ -158,6 +158,7 @@ PRODUCT_PACKAGES += \
 
 # An other files
  PRODUCT_COPY_FILES += \
+    $(PREBUILT)/etc/mkshrc:system/etc/mkshrc \
     $(PREBUILT)/xbin/busybox:system/xbin/busybox
 
 # Exfat
