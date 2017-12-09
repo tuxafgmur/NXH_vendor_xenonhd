@@ -159,7 +159,9 @@ PRODUCT_PACKAGES += \
 # An other files
  PRODUCT_COPY_FILES += \
     $(PREBUILT)/etc/mkshrc:system/etc/mkshrc \
-    $(PREBUILT)/xbin/busybox:system/xbin/busybox
+    $(PREBUILT)/xbin/busybox:system/xbin/busybox \
+    $(PREBUILT)/xbin/sysro:system/xbin/sysro \
+    $(PREBUILT)/xbin/sysrw:system/xbin/sysrw
 
 # Exfat
 TARGET_USES_EXFAT := true
