@@ -156,6 +156,11 @@ PRODUCT_PACKAGES += \
     wget \
     zip
 
+# An other files
+ PRODUCT_COPY_FILES += \
+    $(PREBUILT)/xbin/busybox:system/xbin/busybox
+
+# Exfat
 TARGET_USES_EXFAT := true
 PRODUCT_PACKAGES += \
     fsck.exfat \
