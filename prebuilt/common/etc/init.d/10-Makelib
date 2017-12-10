@@ -1,0 +1,20 @@
+#!/system/bin/sh
+# Copyright 2017 Tuxafgmur - Dhollmen
+
+/bin/mount -o remount,rw,noatime,nodiratime /system >/dev/null 2>&1
+
+for k in app priv-app vendor/app; do
+    for q in /system/$k/*; do
+        l=$q/lib/arm
+        if [ ! -d $l ]; then
+            mkdir -p $l
+            chmod -R 0755 $l
+        fi
+    done
+done
+
+k=$(basename $0)
+rm -f /system/etc/init.d/$k
+cd /
+
+(/bin/mount -o remount,ro,noatime,nodiratime /system >/dev/null 2>&1) &

@@ -1,0 +1,50 @@
+#!/system/bin/sh
+# Copyright 2014-2017 Tuxafgmur - Dhollmen
+
+# Don't edit this file. It will be replaced on rom upgrade.
+
+[ -f /data/.lastclean ] && . /data/.lastclean
+
+LASTDATE=$(($LASTDATE  432000))
+
+TODAY=$(date -u %s)
+
+if [ $TODAY -ge $LASTDATE ]; then
+    rm -fr /data/anr/*
+    rm -fr /data/aplogd/*
+    rm -fr /data/bootchart/*
+    rm -fr /data/bug2go/*
+    rm -fr /data/local/tmp/*
+    rm -fr /data/power_log
+    rm -fr /data/power_supply_logger
+    rm -fr /data/ss-ram-dumps
+    rm -fr /data/system/dropbox/*
+    rm -fr /data/system/dropbox-add/*
+    rm -fr /data/system/heapdump/*
+    rm -f  /data/system/log-files.xml
+    rm -fr /data/system/netstats/*
+    rm -fr /data/system/procstats/*
+    rm -f  /data/system/uiderrors.txt
+    rm -fr /data/system/usagestats/*
+    rm -fr /data/tombstones/*/*
+
+    cd /data/dalvik-cache/arm
+    if [ "$?" != "0" ]; then
+        for q in *; do
+            a=$(echo $q|cut -d'@' -f1)
+            b=$(echo $q|cut -d'@' -f2)
+            c=$(echo $q|cut -d'@' -f3)
+            case $c in
+                boot.art)
+                ;;
+                boot.oat)
+                ;;
+                *)  FILE="/$a/$b/$c"
+                    [ -d $FILE ] || rm $q
+                ;;
+            esac
+        done
+    fi
+    LASTDATE=$TODAY
+    echo "LASTDATE=$LASTDATE" > /data/.lastclean
+fi

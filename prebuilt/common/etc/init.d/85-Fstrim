@@ -1,0 +1,18 @@
+#!/system/bin/sh
+# Copyright 2014-2017 Tuxafgmur -Dhollmen
+
+# Don't edit this file. It will be replaced on rom upgrade.
+
+[ -f /data/.lasttrim ] && . /data/.lasttrim
+
+LASTDATE=$(($LASTDATE  432000))
+
+TODAY=$(date -u %s)
+
+if [ $TODAY -ge $LASTDATE ]; then
+    for mount in /system /cache /data ; do
+        busybox fstrim $mount >/dev/null 2>&1
+    done
+    LASTDATE=$TODAY
+    echo "LASTDATE=$LASTDATE" > /data/.lasttrim
+fi

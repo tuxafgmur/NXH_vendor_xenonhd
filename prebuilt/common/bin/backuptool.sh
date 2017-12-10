@@ -1,81 +1,63 @@
 #!/sbin/sh
-#
 # Backup and restore addon /system files
-#
 
 export C=/tmp/backupdir
 export S=/system
 export V=7.1
 
-# Scripts in /system/addon.d expect to find backuptool.functions in /tmp
 cp -f /tmp/install/bin/backuptool.functions /tmp
 
-# Preserve /system/addon.d in /tmp/addon.d
 preserve_addon_d() {
-  mkdir -p /tmp/addon.d/
-  cp -a /system/addon.d/* /tmp/addon.d/
-  chmod 755 /tmp/addon.d/*.sh
+    mkdir -p /tmp/addon.d/
+    cp -a /system/addon.d/* /tmp/addon.d/
+    chown 0.0 /tmp/addon.d/*.sh
+    chmod 755 /tmp/addon.d/*.sh
 }
 
-# Restore /system/addon.d in /tmp/addon.d
 restore_addon_d() {
-  if [ -d /tmp/addon.d/ ]; then
-    mkdir -p /system/addon.d/
-    cp -a /tmp/addon.d/* /system/addon.d/
+    for script in /tmp/addon.d/*; do
+        case $script in
+            *"50-rom.sh")
+                ;;
+            *"54-initd.sh")
+                ;;
+            *)	
+                cp -a $script /system/addon.d/
+                ;;
+        esac
+    done
     rm -rf /tmp/addon.d/
-  fi
 }
 
-# Proceed only if /system is the expected major and minor version
-check_prereq() {
-if ( ! grep -q "^ro.build.version.release=$V.*" /system/build.prop ); then
-  echo "Not backing up files from incompatible version: $V"
-  exit 127
-fi
-}
-
-check_blacklist() {
-  if [ -f /system/addon.d/blacklist -a -d /$1/addon.d/ ]; then
-      ## Discard any known bad backup scripts
-      cd /$1/addon.d/
-      for f in *sh; do
-          [ -f $f ] || continue
-          s=$(md5sum $f | cut -c-32)
-          grep -q $s /system/addon.d/blacklist && rm -f $f
-      done
-  fi
-}
-
-# Execute /system/addon.d/*.sh scripts with $1 parameter
 run_stage() {
-for script in $(find /tmp/addon.d/ -name '*.sh' |sort -n); do
-  $script $1
-done
+    for script in $(find /tmp/addon.d/ -name '*.sh' |sort -n); do
+        $script $1
+    done
 }
 
 case "$1" in
-  backup)
-    mkdir -p $C
-    check_prereq
-    check_blacklist system
-    preserve_addon_d
-    run_stage pre-backup
-    run_stage backup
-    run_stage post-backup
-  ;;
-  restore)
-    check_prereq
-    check_blacklist tmp
-    run_stage pre-restore
-    run_stage restore
-    run_stage post-restore
-    restore_addon_d
-    rm -rf $C
-    sync
-  ;;
-  *)
-    echo "Usage: $0 {backup|restore}"
-    exit 1
+    backup)
+        if [ ! -r /system/build.prop ]; then
+            rm -f /system/addon.d/*
+        elif ( ! grep -q "^ro.build.version.release=$V.*" /system/build.prop ); then
+            rm -f /system/addon.d/*
+        fi
+        mkdir -p $C
+        preserve_addon_d
+        run_stage pre-backup
+        run_stage backup
+        run_stage post-backup
+        ;;
+    restore)
+        run_stage pre-restore
+        run_stage restore
+        run_stage post-restore
+        restore_addon_d
+        rm -rf $C
+        sync
+        ;;
+    *)
+        echo "Usage: $0 {backup|restore}"
+        exit 1
+        ;;
 esac
-
-exit 0
