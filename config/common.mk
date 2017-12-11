@@ -101,7 +101,6 @@ PRODUCT_PACKAGES += \
     Recorder \
     Terminal \
     Wallpapers \
-    WallpaperPicker \
     WeatherManagerService \
     WeatherProvider \
     libemoji \
