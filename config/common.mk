@@ -101,8 +101,6 @@ PRODUCT_PACKAGES += \
     Recorder \
     Terminal \
     Wallpapers \
-    WeatherManagerService \
-    WeatherProvider \
     libemoji \
     libffmpeg_extractor \
     libffmpeg_omx \
