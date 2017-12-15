@@ -15,7 +15,7 @@ fi
 
 # Determine build properties
 MODVERSION=`grep ro.xenonhd.version $OUT/system/build.prop | cut -d'=' -f2`
-DEVICE=`grep ro.xenonhd.device $OUT/system/build.prop | cut -d'=' -f2`
+DEVICE=`grep ro.build.product $OUT/system/build.prop | cut -d'=' -f2`
 OTA_TYPE=`grep ro.xenonhd.type $OUT/system/build.prop | cut -d'=' -f2`
 
 XENONHD_TARGET_PACKAGE=$MODVERSION-$DEVICE.zip
