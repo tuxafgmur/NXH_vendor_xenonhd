@@ -91,6 +91,7 @@ PRODUCT_PACKAGES += \
     CMParts \
     CMSettingsProvider \
     Calculator \
+    DeskClock \
     Development \
     Eleven \
     Jelly \
