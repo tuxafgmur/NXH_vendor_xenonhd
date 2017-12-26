@@ -71,7 +71,6 @@ PRODUCT_COPY_FILES += \
 
 # Include OTA config, XenonHD audio files, Theme engine
 include $(CONFIG)/ota.mk
-include $(CONFIG)/themes_common.mk
 
 # CMSDK
 ifneq ($(TARGET_DISABLE_CMSDK), true)
