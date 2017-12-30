@@ -5,14 +5,13 @@
 
 [ -f /data/.lasttrim ] && . /data/.lasttrim
 
-LASTDATE=$(($LASTDATE  432000))
+LASTDATE=$(($LASTDATE + 432000))
+TODAY=$(date -u +%s)
 
-TODAY=$(date -u %s)
-
-if [ $TODAY -ge $LASTDATE ]; then
-    for mount in /system /cache /data ; do
-        busybox fstrim $mount >/dev/null 2>&1
+if [ "$TODAY" -ge "$LASTDATE" ]; then
+    for mount in /data /cache /system /oem ; do
+        sync
+        busybox fstrim -v $mount >/dev/null 2>&1
     done
-    LASTDATE=$TODAY
-    echo "LASTDATE=$LASTDATE" > /data/.lasttrim
+    echo "LASTDATE=$TODAY" > /data/.lasttrim
 fi

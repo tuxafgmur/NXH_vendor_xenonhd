@@ -5,9 +5,8 @@
 
 [ -f /data/.lastclean ] && . /data/.lastclean
 
-LASTDATE=$(($LASTDATE  432000))
-
-TODAY=$(date -u %s)
+LASTDATE=$(($LASTDATE + 432000))
+TODAY=$(date -u +%s)
 
 if [ $TODAY -ge $LASTDATE ]; then
     rm -fr /data/anr/*
@@ -45,6 +44,5 @@ if [ $TODAY -ge $LASTDATE ]; then
             esac
         done
     fi
-    LASTDATE=$TODAY
-    echo "LASTDATE=$LASTDATE" > /data/.lastclean
+    echo "LASTDATE=$TODAY" > /data/.lastclean
 fi

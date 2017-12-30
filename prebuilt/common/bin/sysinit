@@ -1,8 +1,9 @@
 #!/system/bin/sh
 
-export PATH=/sbin:/system/sbin:/system/bin:/system/xbin
+setenforce 0
+export PATH=/sbin:/system/bin:/system/xbin
+/system/bin/sysctl -pq
 for i in /system/etc/init.d/*; do
-    if [ -x $i ]; then
-        $i
-    fi
+    [ -x $i ] && $i 
 done
+setenforce 1

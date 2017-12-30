@@ -61,7 +61,6 @@ PRODUCT_COPY_FILES += \
     $(CONFIG)/permissions/backup.xml:system/etc/sysconfig/backup.xml \
     $(CONFIG)/permissions/com.cyanogenmod.android.xml:system/etc/permissions/com.cyanogenmod.android.xml \
     $(CONFIG)/permissions/power-whitelist.xml:system/etc/sysconfig/power-whitelist.xml \
-    $(PREBUILT)/etc/init.local.rc:root/init.xenonhd.rc \
     $(PREBUILT)/lib/content-types.properties:system/lib/content-types.properties \
 
 # Enable SIP+VoIP on all targets & wireless Xbox 360 controller support
