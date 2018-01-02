@@ -10,6 +10,7 @@
 list_files() {
 cat <<EOF
 etc/hosts
+etc/tweaks.conf
 media/bootanimation.zip
 EOF
 }
