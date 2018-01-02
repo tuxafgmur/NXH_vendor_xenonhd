@@ -47,14 +47,10 @@ PRODUCT_BOOT_JARS += \
 # Backup Tool & init.d support
 PRODUCT_COPY_FILES += \
     $(PREBUILT)/bin/50-rom.sh:system/addon.d/50-rom.sh \
-    $(PREBUILT)/bin/54-initd.sh:system/addon.d/54-initd.sh \
     $(PREBUILT)/bin/backuptool.functions:install/bin/backuptool.functions \
     $(PREBUILT)/bin/backuptool.sh:install/bin/backuptool.sh \
     $(PREBUILT)/bin/sysinit:system/bin/sysinit \
-    $(PREBUILT)/bin/wget:system/bin/wget \
-    $(PREBUILT)/etc/init.d/10-Makelib:system/etc/init.d/10-Makelib \
-    $(PREBUILT)/etc/init.d/80-Clean:system/etc/init.d/80-Clean \
-    $(PREBUILT)/etc/init.d/85-Fstrim:system/etc/init.d/85-Fstrim
+    $(PREBUILT)/bin/wget:system/bin/wget
 
 # XenonHD-specific files
 PRODUCT_COPY_FILES += \
@@ -148,7 +144,6 @@ PRODUCT_PACKAGES += \
 # An other files
  PRODUCT_COPY_FILES += \
     $(PREBUILT)/etc/mkshrc:system/etc/mkshrc \
-    $(PREBUILT)/etc/sysctl.conf:system/etc/sysctl.conf \
     $(PREBUILT)/xbin/busybox:system/xbin/busybox \
     $(PREBUILT)/xbin/sysro:system/xbin/sysro \
     $(PREBUILT)/xbin/sysrw:system/xbin/sysrw
