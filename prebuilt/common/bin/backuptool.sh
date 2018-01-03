@@ -54,6 +54,15 @@ case "$1" in
         run_stage post-restore
         restore_addon_d
         rm -rf $C
+        for k in app priv-app vendor/app; do
+            for q in /system/$k/*; do
+                l=$q/lib/arm
+                if [ ! -d $l ]; then
+                    mkdir -p $l 
+                    chmod -R 0755 $q/lib
+                fi
+            done
+        done
         sync
         ;;
     *)

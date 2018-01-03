@@ -1,0 +1,15 @@
+#!/system/bin/sh
+# Copyright 2017 Tuxafgmur - Dhollmen
+
+mount | grep '/system' | grep -q rw
+if [ $? = 0 ]; then
+    for k in app priv-app vendor/app; do
+        for q in /system/$k/*; do
+            l=$q/lib/arm
+            if [ ! -d $l ]; then
+                mkdir -p $l 
+                chmod -R 0755 $q/lib
+            fi
+        done
+    done
+fi
