@@ -69,3 +69,5 @@ echo -e ${cya}"md5:"${cya}" $(cat $XENONHD_TARGET_PACKAGE.md5sum | awk '{ print 
 echo -e ${cya}"size:"${cya}" $ZIPSIZE"${txtrst}
 echo -e ${cya}"========================================"${txtrst}
 )
+
+kill $(pidof java) 2>/dev/null
