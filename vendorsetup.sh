@@ -1,1 +1,2 @@
 add_lunch_combo xenonhd_athene-userdebug
+add_lunch_combo xenonhd_fever-userdebug
