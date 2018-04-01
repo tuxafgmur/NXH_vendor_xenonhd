@@ -19,8 +19,6 @@ restore_addon_d() {
         case $script in
             *"50-rom.sh")
                 ;;
-            *"54-initd.sh")
-                ;;
             *)	
                 cp -a $script /system/addon.d/
                 ;;
@@ -39,7 +37,7 @@ case "$1" in
     backup)
         if [ ! -r /system/build.prop ]; then
             rm -f /system/addon.d/*
-        elif ( ! grep -q "^ro.build.version.release=$V.*" /system/build.prop ); then
+        elif ( ! grep -q "^ro.xenonhd.version=Dhollmen_N-*" /system/build.prop ); then
             rm -f /system/addon.d/*
         fi
         mkdir -p $C
